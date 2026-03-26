@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Vehicle Registration List</h1>
+
+<table>
+    <tr>
+        <th>Owner</th>
+        <th>Mobile</th>
+        <th>Registration Number</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Vehicle Age</th>
+        <th>Actions</th>
+    </tr>
+    {% for v in vehicles %}
+    <tr>
+        <td>{{ v.owner_name }}</td>
+        <td>{{ v.owner_mobile }}</td>
+        <td>{{ v.registration_number }}</td>
+        <td>{{ v.make }}</td>
+        <td>{{ v.model }}</td>
+        <td>{{ v.year }}</td>
+        <td>{{ get_vehicle_age(v.year) }} years</td>
+        <td>
+            <a href="/inspection/{{ v.vehicle_id }}">Inspection</a> |
+            <a href="/insurance/{{ v.vehicle_id }}">Insurance</a> |
+            <a href="/history/{{ v.vehicle_id }}">History</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Add New Vehicle</h2>
+<form action="/add" method="POST">
+    Owner Name:<br>
+    <input type="text" name="owner_name" required><br>
+    Mobile:<br>
+    <input type="text" name="mobile" required><br>
+    Registration Number:<br>
+    <input type="text" name="registration_number" required><br>
+    Make:<br>
+    <input type="text" name="make" required><br>
+    Model:<br>
+    <input type="text" name="model" required><br>
+    Year:<br>
+    <input type="number" name="year" min="1990" max="{{ current_year }}" required><br>
+    Registration Date:<br>
+    <input type="date" name="registration_date" required><br>
+    Expiry Date:<br>
+    <input type="date" name="expiry_date" required><br>
+    <button type="submit">Add Vehicle</button>
+</form>
+{% endblock %}

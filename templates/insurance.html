@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Insurance for Vehicle ID {{ vehicle_id }}</h1>
+
+<table>
+    <tr>
+        <th>Policy Number</th>
+        <th>Insurer Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    {% for ins in insurances %}
+    <tr>
+        <td>{{ ins.policy_number }}</td>
+        <td>{{ ins.insurer_name }}</td>
+        <td>{{ ins.start_date }}</td>
+        <td>{{ ins.end_date }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">No records found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Add Insurance</h2>
+<form action="/add_insurance/{{ vehicle_id }}" method="POST">
+    Policy Number:<br>
+    <input type="text" name="policy_number" required><br>
+    Insurer Name:<br>
+    <input type="text" name="insurer_name" required><br>
+    Start Date:<br>
+    <input type="date" name="start_date" required><br>
+    End Date:<br>
+    <input type="date" name="end_date" required><br>
+    <button type="submit">Add Insurance</button>
+</form>
+{% endblock %}

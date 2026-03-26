@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Expired Registrations</h1>
+
+<table>
+    <tr>
+        <th>Owner</th>
+        <th>Mobile</th>
+        <th>Registration Number</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Registration Date</th>
+        <th>Expiry Date</th>
+    </tr>
+    {% for e in expired_list %}
+    <tr>
+        <td>{{ e.owner_name }}</td>
+        <td>{{ e.owner_mobile }}</td>
+        <td>{{ e.registration_number }}</td>
+        <td>{{ e.make }}</td>
+        <td>{{ e.model }}</td>
+        <td>{{ e.year }}</td>
+        <td>{{ e.registration_date }}</td>
+        <td>{{ e.expiry_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

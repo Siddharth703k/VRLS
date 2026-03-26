@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registration & Licensing System (VRLS) - HTML Demo</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #333; line-height: 1.6; }
+        header { background-color: #34495e; color: white; padding: 30px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        h1 { margin: 0; font-size: 3em; letter-spacing: 1px; }
+        p.subtitle { font-size: 1.2em; opacity: 0.9; margin-top: 10px; }
+        .container { width: 90%; max-width: 1200px; margin: 30px auto; padding: 25px; background-color: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px; margin-top: 30px; font-size: 2.2em; }
+        h3 { color: #34495e; margin-top: 25px; font-size: 1.6em; }
+
+        /* Menu Grid */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .card { background: #f9f9f9; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-7px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .card a { text-decoration: none; color: #2980b9; font-weight: bold; font-size: 1.3em; display: block; padding: 18px; border: 1px solid #aed6f1; border-radius: 8px; background-color: #eaf2f8; transition: background-color 0.2s, color 0.2s; }
+        .card a:hover { background-color: #2980b9; color: white; border-color: #2980b9; }
+
+        /* Data Display */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #e0e0e0; padding: 15px; text-align: left; }
+        th { background-color: #f5f5f5; color: #555; font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
+        tr:nth-child(even) { background-color: #fdfdfd; }
+        tr:hover { background-color: #f0f0f0; }
+
+        /* Code Block for Queries */
+        pre { background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.95em; line-height: 1.4; margin-top: 20px; }
+        code { color: #a6e22e; } /* Keywords */
+        .comment { color: #75715e; } /* Comments */
+        .string { color: #e6db74; } /* String literals */
+
+        /* Messages */
+        .message { padding: 15px; border-radius: 8px; margin-top: 15px; font-weight: bold; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚦 Vehicle Registration & Licensing System (VRLS)</h1>
+        <p class="subtitle">DBMS Miniproject Demo (HTML Only)</p>
+    </header>
+
+    <div class="container">
+        <h2>System Overview</h2>
+        <p>This page demonstrates the conceptual design and data management capabilities of our Vehicle Registration and Licensing System. While this is an HTML-only static demo, it illustrates how a real system would interact with a database for vehicle and owner data, registrations, inspections, insurance, and history tracking.</p>
+
+        <h3>Core Tables & Their Purpose:</h3>
+        <ul>
+            <li>**Owner:** Stores details of vehicle owners.</li>
+            <li>**Vehicle:** Stores vehicle specifications and links to owners.</li>
+            <li>**Registration:** Manages registration status and renewals.</li>
+            <li>**Inspection:** Logs mandatory vehicle checks.</li>
+            <li>**Insurance:** Records policy details.</li>
+            <li>**History:** Maintains a searchable log of all major vehicle events.</li>
+        </ul>
+
+        <h2>Key Features & SQL Demonstrations</h2>
+        <div class="menu-grid">
+            <div class="card"><a href="#owner-data">👤 Owner & Vehicle Data</a></div>
+            <div class="card"><a href="#registration-data">📜 Registration Details</a></div>
+            <div class="card"><a href="#inspection-data">🔎 Inspection Records</a></div>
+            <div class="card"><a href="#history-data">⏱️ Vehicle History</a></div>
+            <div class="card"><a href="#function-demo">🔢 Function Demo (Vehicle Age)</a></div>
+            <div class="card"><a href="#view-demo">⚠️ Expired Registrations (View)</a></div>
+        </div>
+
+        <h3 id="owner-data">Owner & Vehicle Data</h3>
+        <p class="info message">Demonstrating data from `Owner` and `Vehicle` tables.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Select all owners and their registered vehicles</span>
+<span class="keyword">SELECT</span> O.name, O.mobile, V.registration_number, V.make, V.model, V.year
+<span class="keyword">FROM</span> Owner O <span class="keyword">JOIN</span> Vehicle V <span class="keyword">ON</span> O.owner_id = V.owner_id;</code></pre>
+        <table>
+            <thead>
+                <tr><th>Owner Name</th><th>Mobile</th><th>Reg. No.</th><th>Make</th><th>Model</th><th>Year</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Aman Sharma</td><td>9812345670</td><td>MH12 AB 1234</td><td>Honda</td><td>City</td><td>2021</td></tr>
+                <tr><td>Priya Verma</td><td>8701234567</td><td>MH01 CD 5678</td><td>Maruti Suzuki</td><td>Swift</td><td>2020</td></tr>
+                <tr><td>Rahul Kumar</td><td>9988776655</td><td>DL05 EF 9012</td><td>Hyundai</td><td>Creta</td><td>2022</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="registration-data">Registration Details</h3>
+        <p class="info message">Demonstrating data from `Registration` table.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Select all registration records</span>
+<span class="keyword">SELECT</span> registration_number, registration_date, expiry_date
+<span class="keyword">FROM</span> Registration <span class="keyword">JOIN</span> Vehicle <span class="keyword">ON</span> Registration.vehicle_id = Vehicle.vehicle_id
+<span class="keyword">ORDER BY</span> expiry_date <span class="keyword">ASC</span>;</code></pre>
+        <table>
+            <thead>
+                <tr><th>Reg. No.</th><th>Registration Date</th><th>Expiry Date</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>MH01 CD 5678</td><td>2020-03-01</td><td>2025-02-28</td></tr>
+                <tr><td>MH12 AB 1234</td><td>2021-05-15</td><td>2026-05-14</td></tr>
+                <tr><td>DL05 EF 9012</td><td>2022-08-20</td><td>2027-08-19</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="inspection-data">Inspection Records</h3>
+        <p class="info message">Demonstrating data from `Inspection` table, including failed inspections.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Select all inspection records and filter for 'Failed'</span>
+<span class="keyword">SELECT</span> V.registration_number, I.inspection_date, I.result
+<span class="keyword">FROM</span> Inspection I <span class="keyword">JOIN</span> Vehicle V <span class="keyword">ON</span> I.vehicle_id = V.vehicle_id
+<span class="keyword">WHERE</span> I.result = <span class="string">'Failed'</span>;</code></pre>
+        <table>
+            <thead>
+                <tr><th>Reg. No.</th><th>Inspection Date</th><th>Result</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>MH01 CD 5678</td><td>2023-02-25</td><td>Failed</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="history-data">Searchable Vehicle History</h3>
+        <p class="info message">Illustrating a vehicle's event history from the `History` table.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Select all history events for a specific vehicle (e.g., MH12 AB 1234)</span>
+<span class="keyword">SELECT</span> V.registration_number, H.event_type, H.event_date, H.description
+<span class="keyword">FROM</span> History H <span class="keyword">JOIN</span> Vehicle V <span class="keyword">ON</span> H.vehicle_id = V.vehicle_id
+<span class="keyword">WHERE</span> V.registration_number = <span class="string">'MH12 AB 1234'</span>
+<span class="keyword">ORDER BY</span> H.event_date <span class="keyword">ASC</span>;</code></pre>
+        <table>
+            <thead>
+                <tr><th>Reg. No.</th><th>Event Type</th><th>Event Date</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>MH12 AB 1234</td><td>Registration</td><td>2021-05-15 10:00:00</td><td>Initial registration done for Honda City.</td></tr>
+                <tr><td>MH12 AB 1234</td><td>Registration/Renewal</td><td>2026-05-15 11:30:00</td><td>Registration/Renewal (ID: 13) created with expiry date: 2031-05-14 (Trigger Demo)</td></tr>
+                <tr><td>MH12 AB 1234</td><td>Insurance</td><td>2024-01-01 09:00:00</td><td>New policy POL12345678 activated for Honda City.</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="function-demo">Function Demo: Vehicle Age Calculator</h3>
+        <p class="info message">Demonstrating a custom SQL function to calculate vehicle age.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Calling the custom function for Vehicle ID 1 (Honda City, 2021)</span>
+<span class="keyword">SELECT</span> GetVehicleAge(1) AS HondaCity_Age_Years;</code></pre>
+        <div class="message info">
+            <p><strong>Result for Honda City (Vehicle ID 1, Year 2021):</strong></p>
+            <p>The age of **Honda City (Reg: MH12 AB 1234)** is: <strong>3 years</strong>.</p>
+            <p class="comment">(Assuming current year is 2024)</p>
+        </div>
+
+        <h3 id="view-demo">View Demo: Expired Registrations</h3>
+        <p class="info message">Using a `VIEW` to easily identify vehicles with expired registrations.</p>
+        <h4>SQL Query:</h4>
+        <pre><code><span class="comment">-- Selecting from the predefined view 'ExpiredRegistrations_View'</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ExpiredRegistrations_View;</code></pre>
+        <table>
+            <thead>
+                <tr><th>Reg. No.</th><th>Make</th><th>Model</th><th>Year</th><th>Owner Name</th><th>Owner Mobile</th><th>Reg. Date</th><th>Expiry Date</th></tr>
+            </thead>
+            <tbody>
+                <tr class="warning"><td>MH01 CD 5678</td><td>Maruti Suzuki</td><td>Swift</td><td>2020</td><td>Priya Verma</td><td>8701234567</td><td>2020-03-01</td><td>2025-02-28</td></tr>
+            </tbody>
+        </table>
+        <div class="message warning">
+            <p><strong>Note:</strong> This table shows a sample "Expired" vehicle. In a live system, this data would be fetched dynamically.</p>
+            <p class="comment">(Assuming current date is after 2025-02-28)</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>History for Vehicle ID {{ vehicle_id }}</h1>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+    </tr>
+    {% for h in history_list %}
+    <tr>
+        <td>{{ h.event_date }}</td>
+        <td>{{ h.description }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="2">No records found</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

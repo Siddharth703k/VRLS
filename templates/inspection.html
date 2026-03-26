@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Inspections for Vehicle ID {{ vehicle_id }}</h1>
+
+<table>
+    <tr>
+        <th>Inspection Date</th>
+        <th>Result</th>
+    </tr>
+    {% for i in inspections %}
+    <tr>
+        <td>{{ i.inspection_date }}</td>
+        <td>{{ i.result }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="2">No records found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Add Inspection</h2>
+<form action="/add_inspection/{{ vehicle_id }}" method="POST">
+    Date:<br>
+    <input type="date" name="inspection_date" required><br>
+    Result:<br>
+    <input type="text" name="result" required><br>
+    <button type="submit">Add Inspection</button>
+</form>
+{% endblock %}
